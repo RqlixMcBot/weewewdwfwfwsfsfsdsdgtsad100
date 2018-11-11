@@ -13,6 +13,7 @@ client.login(process.env.BOT_TOKEN);
 
 
 
+
 client.on('ready',  () => {
   console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
   console.log('by iTz_Volcano');
@@ -93,6 +94,9 @@ client.on('message', message => {
 
 
 
+
+
+
 client.on("message", message => {
     var args = message.content.substring(prefix.length).split(" ");
     if (message.content.startsWith(prefix + "clear")) {
@@ -117,92 +121,61 @@ footer: {
 
 
 client.on('message', message => {
-
               if(!message.channel.guild) return;
 
-
-
     if(message.content.startsWith(prefix + 'bc')) {
-
     if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
-
   if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
-
     let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
-
-    let copy = "BlackSpirit Bot";
-
+    let copy = "Marble System";
     let request = `Requested By ${message.author.username}`;
-
     if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
-
     msg.react('✅')
-
     .then(() => msg.react('❌'))
-
     .then(() =>msg.react('✅'))
-
     
-
     let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-
     let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
-
     
-
     let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
-
     let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
-
     reaction1.on("collect", r => {
-
     message.channel.send(`☑ | Done ... The Broadcast Message Has Been Sent For ${message.guild.members.size} Members`).then(m => m.delete(5000));
-
     message.guild.members.forEach(m => {
-
     var bc = new
-
        Discord.RichEmbed()
-
        .setColor('RANDOM')
-
        .setTitle('Broadcast')
-
        .addField('Server', message.guild.name)
-
        .addField('Sender', message.author.username)
-
        .addField('Message', args)
-
        .setThumbnail(message.author.avatarURL)
-
        .setFooter(copy, client.user.avatarURL);
-
     m.send({ embed: bc })
-
     msg.delete();
-
     })
-
     })
-
     reaction2.on("collect", r => {
-
     message.channel.send(`**اوكي شكرأ لك**`).then(m => m.delete(5000));
-
     msg.delete();
-
     })
-
     })
-
      }
-
     });
 
 
 
 
+
+client.on('message', message => {
+    if(message.channel.type === 'dm') {
+        var guildID = '494530123173724160'; // <=============== ايدي السيرفر حقك
+        if(message.content.includes('discord.gg/')) {
+            var member = client.guilds.find(g => g.id === guildID).members.find(m => m.id === message.author.id);
+            member.ban({ reason: 'ADS In Private.' }).catch();
+        }
+    }
+});
 
 
 
@@ -498,7 +471,6 @@ client.on('message', message => {
 
 
 
-
 client.on("guildMemberAdd", member => {
   member.createDM().then(function (channel) {      const embed = new Discord.RichEmbed()
         .setColor('RANDOM')
@@ -549,8 +521,6 @@ client.on('message', message => {
 
 
 
-
-
 client.on('message', message => {
     if(message.content.includes('abook')){
                                             if(!message.channel.guild) return message.reply('** advertising me on DM ? :thinking:   **');
@@ -587,6 +557,8 @@ client.on ("guildMemberRemove", member => {
 })
  
  
+
+
 
 
 
@@ -636,6 +608,11 @@ client.on('message', message => {
   
   
   
+  
+  
+  
+
+
 
 
 
@@ -726,10 +703,10 @@ client.on('message', msg => {
 });
    
  
+
  
  
 
- 
  
  
 const adminprefix = "+";
@@ -761,34 +738,6 @@ if (message.content.startsWith(adminprefix + 'setT')) {
  
    
 
-   
-
-
-	
-client.on('message', message => {
-            if(!message.channel.guild) return;
-let args = message.content.split(' ').slice(1).join(' ');
-if (message.content.startsWith('^own-bc')){
- if (message.author.id !== '462038057529507841') return message.reply('** هذا الأمر قفط لصاحب البوت و شكراًً **')
-message.channel.sendMessage('جار ارسال الرسالة |✅')
-client.users.forEach(m =>{
-m.sendMessage(args)
-})
-}
-});   
-   
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
 
 client.on("message", message => {
@@ -859,118 +808,153 @@ client.on("message", message => {
 
 
   
-client.on('guildMemberAdd', Sal => { 
-    var embed = new Discord.RichEmbed()
-    .setAuthor(Sal.user.username, Sal.user.avatarURL)
-    .setThumbnail(Sal.user.avatarURL)
-    .setImage('https://cdn.discordapp.com/attachments/497078650911588367/497130904213389315/th56E7Y6TK.jpg') 
-    .setTitle('عضو جديد!')
-    .setDescription('مرحبا بك بالسيرفر')
-    .addField('``ايدي العضو``:',"" +  Sal.user.id, true)
-    .addField('``تاق العضو``', Sal.user.discriminator, true)
-    .addField('``تم الانشاء في``', Sal.user.createdAt, true)
-    .addField(' 👤  انت رقم',`**[ ${Sal.guild.memberCount} ]**`,true)
-    .setColor('RANDOM')
-    .setFooter(Sal.guild.name, Sal.guild.iconURL, true)
-    var channel =Sal.guild.channels.find('name', 'marble') 
-    if (!channel) return;
-    channel.send({embed : embed});
-    });
-
-
-
-client.on('message', function(message) {
-    if (!message.member.hasPermissions(['ADMINISTRATOR'])){
-            let command = message.content.split(" ")[0];
-        if(message.content.includes('discord.gg')){
-        message.reply (' ')
-           if(!message.channel.guild) return message.reply('** This command only for servers**');
-     message.member.addRole(message.guild.roles.find('name', 'Muted')); 
-    const embed500 = new Discord.RichEmbed()
-      .setTitle(":x: | تمت معاقبتك")
-            .addField(`** لقد قمت بمخالفة قوانين السيرفر من خلال نشر سيرفرات اخرى  **` , `**ملاحظة  : إن كآن هذآ الميوت عن طريق الخطأ تكلم مع الادآرة**`)
-      .addField(`by`,`shyboy_05`)
-            .setColor("c91616")
-            .setThumbnail(`${message.author.avatarURL}`)
-            .setAuthor(message.author.username, message.author.avatarURL) 
-        .setFooter(`${message.guild.name} Server`)
-     message.channel.send(embed500) 
+client.on('guildMemberAdd', member => {
+    let channel = member.guild.channels.find('name', 'marble');
+    let memberavatar = member.user.avatarURL
+      if (!channel) return; 
+    let embed = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail(memberavatar)
+        .addField(':running_shirt_with_sash: | name :  ',`${member}`)
+        .addField(':loudspeaker: | نورت السيرفر ي قلبي' , `Welcome to the server, ${member}`)
+        .addField(':id: | user :', "**[" + `${member.id}` + "]**" )
+                .addField('➡| انت العضو رقم',`${member.guild.memberCount}`)
+               
+                  .addField("Name:",`<@` + `${member.id}` + `>`, true)
+                      
+                                     .addField(' الـسيرفر', `${member.guild.name}`,true)
+                                       
+     .setFooter("Marble Server")
+        .setTimestamp()
     
-        
-    }
-    }
-})
-	
-	
+      channel.sendEmbed(embed);
+    });
+    
+    
+
+
+
+
 
 client.on("message", message => {
+
  if (message.content === "+help") {
+
         message.react("😘")
+
            message.react("😵")
+
   const embed = new Discord.RichEmbed() 
+
       .setColor("#ffff00")
+
       .setThumbnail(message.author.avatarURL)
+
       .setDescription(`
+
 -🚀 سرعه اتصال ممتازه
+
 -😎 سهل الاستخدام 
+
 -⚠ صيانه كل يوم
+
 -📚 البوت عربي و سيتم اضافه اللغه النقليزية
+
+
+
 
 
 ● ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ● 
 
+
+
 👑『اوامر ادارية』👑
+
+
 
 👑+clear
 
+
+
 👑+move all
+
+
 
 👑+ban
 
+
+
 👑+mc
+
+
 
 👑+umc
 
+
+
 👑+mute
 
+
+
 👑+unmute
+
+
 
 👑+bc 
 
 
+
+
+
 ● ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ● 
+
+
 
 +setName
 
+
+
 +setAvatar
+
+
 
 +setgame
 
-● ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ●
 
-منع سبب
-
-منع تهكير
-
-منع نشر
-
-ولكم
-
-اعطاء روول عند الدخول 
 
 ● ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ●
+
+
+
+
+
 
 
 
 `)
 
+
+
 message.author.sendEmbed(embed)
 
+
+
 }
+
 });
 
 
+
+
+
    
+
    
+
    
+
 var prefix = '+'
+
+
+   
+
